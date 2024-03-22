@@ -1,0 +1,49 @@
+---
+title: "oriT_test"
+format: html
+editor: visual
+---
+
+## Setup
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(stringr)
+library(dplyr)
+```
+
+## Files
+
+```{r}
+oriT_test <- read_tsv("test_oriT.tsv")
+oriT_test_2 <- read_tsv("test_oriT_2.tsv")
+names(oriT_test_2) <- c("Genome_ID", "subject acc.ver", "% identity", "alignment length", "mismatches", "gap opens", "q. start", "q. end", "s. start", "s. end", "evalue", "bit score")
+oriT_test_2$Genome_ID <- gsub("_0v0", "", oriT_test_2$Genome_ID)
+oriT_test_2$Genome_ID <- gsub("_1v0", "", oriT_test_2$Genome_ID)
+write.csv(oriT_test_2, "new_oriT_test.csv", row.names=F)
+
+taxonomy_data <- read.csv("taxonomy_data.csv", stringsAsFactors = F)
+oriT_test_new <- read.csv("new_oriT_test.csv")
+oriT_test_merged <- merge(oriT_test_new, taxonomy_data, by="Genome_ID")
+oriT_test_merged <- unique(oriT_test_merged)
+```
+
+## Plots
+
+```{r}
+oriT_name <- as.vector(names(table(oriT_test_merged$Genome_ID)))
+oriT_count <- as.vector(table(oriT_test_merged$Genome_ID))
+oriT_df <- data.frame(oriT_name, oriT_count)
+oriT_df <- distinct(oriT_df)
+names(oriT_df) <- c("Genome_ID","Count")
+
+df_temp <- data.frame(oriT_test_merged$Genome_ID, oriT_test_merged$Genus_rev)
+df_temp <- distinct(df_temp)
+names(df_temp) <- c("Genome_ID","Genus_rev")
+
+oriT_df_2 <- merge(oriT_df, df_temp, by="Genome_ID")
+
+#Frequency of nº of oriT
+ggplot(oriT_df_2, aes(Count, fill=Genus_rev)) + geom_bar(stat="count")
+```
