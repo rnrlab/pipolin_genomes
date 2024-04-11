@@ -143,10 +143,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link active" href="./orit.html" aria-current="page"> 
 <span class="menu-text">oriT</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
-  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -204,9 +200,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Los archivos usados son los resultados mediante un script que busca posibles oriTs en pipolinas bacterianas y un compendio de datos sobre todos los genomas disponibles, del cuál solo nos interesa sus datos taxonómicos y su ID.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>oriT_test <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"test_oriT.tsv"</span>, <span class="at">col_names =</span> F)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pipolin_summary <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"pipolin_summary_new.tsv"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>taxonomy_data <span class="ot">&lt;-</span> pipolin_summary[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">34</span>,<span class="dv">38</span><span class="sc">:</span><span class="dv">44</span>)]</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(pipolin_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>oriT_test <span class="ot">&lt;-</span> oriT_test[<span class="sc">!</span><span class="fu">duplicated</span>(oriT_test<span class="sc">$</span>X7),]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pipolin_summary <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"pipolin_summary_new.tsv"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>taxonomy_data <span class="ot">&lt;-</span> pipolin_summary[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">34</span>,<span class="dv">38</span><span class="sc">:</span><span class="dv">44</span>)]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(pipolin_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="obtaining-the-genome_id" class="level2">
@@ -240,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="plots" class="level2">
 <h2 class="anchored" data-anchor-id="plots">Plots</h2>
-<p>El gráfico muestra qué cantidad de genomas tienen n número de oriTs, coloreado según pertenencia a un género bacteriano relevantes. En este caso, desde un principio sólo hemos contado los genomas que tengan al menos 1 oriT.</p>
+<p>El gráfico muestra qué cantidad de genomas tienen n número de oriTs, coloreado según pertenencia a un género bacteriano relevantes. En este caso, desde un principio sólo hemos contado los pipolinas que tengan al menos 1 oriT.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nº of oriTs</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(oriT_df_merged, <span class="fu">aes</span>(Count, <span class="at">fill=</span>Genus_rev)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"count"</span>) <span class="sc">+</span></span>

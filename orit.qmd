@@ -23,6 +23,7 @@ Los archivos usados son los resultados mediante un script que busca posibles ori
 #| label: files
 #| message: false
 oriT_test <- read_tsv("test_oriT.tsv", col_names = F)
+oriT_test <- oriT_test[!duplicated(oriT_test$X7),]
 pipolin_summary <- read_tsv("pipolin_summary_new.tsv")
 taxonomy_data <- pipolin_summary[,c(3,34,38:44)]
 rm(pipolin_summary)
@@ -63,7 +64,7 @@ oriT_df_merged <- merge(oriT_df, df_temp, by="Genome_ID")
 
 ## Plots
 
-El gráfico muestra qué cantidad de genomas tienen n número de oriTs, coloreado según pertenencia a un género bacteriano relevantes. En este caso, desde un principio sólo hemos contado los genomas que tengan al menos 1 oriT.
+El gráfico muestra qué cantidad de genomas tienen n número de oriTs, coloreado según pertenencia a un género bacteriano relevantes. En este caso, desde un principio sólo hemos contado los pipolinas que tengan al menos 1 oriT.
 
 ```{r}
 #| label: Plots

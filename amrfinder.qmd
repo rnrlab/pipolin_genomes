@@ -13,6 +13,7 @@ library(ggplot2)
 library(tidyverse)
 library(stringr)
 library(dplyr)
+library(ggh4x)
 ```
 
 ## Files
@@ -54,7 +55,7 @@ Nos interesa saber la cantidad de genomas que tienen 0, 1, 2, 3, etc. resistenci
 #| label: Count
 Genome_amrf_name <- as.vector(names(table(data_amrf_new$Genome)))
 Genome_amrf_count <- as.vector(table(data_amrf_new$Genome))
-df_amrf_genome <- data.frame(Genome_amrf_name, Genome_amrf_count)
+df_amrf_genome <- data.frame(Genome_amrf_name,Genome_amrf_count)
 df_amrf_genome <- distinct(df_amrf_genome)
 names(df_amrf_genome) <- c("Genome_ID","Count")
 
@@ -62,7 +63,12 @@ df_temp <- data.frame(taxonomy_data$Genome_ID, taxonomy_data$Genus_rev)
 df_temp <- distinct(df_temp)
 names(df_temp) <- c("Genome_ID","Genus_rev")
 
+df_type <- data.frame(data_amrf_new$Genome_ID, data_amrf_new$Element.type)
+df_type <- unique(df_type)
+names(df_type) <- c("Genome_ID","Error_type")
+
 df_amrf_genome2 <- merge(df_amrf_genome, df_temp, by="Genome_ID")
+df_amrf_genome2 <- merge(df_amrf_genome2, df_type, by="Genome_ID")
 
 df_amrf_genome3 <- merge(taxonomy_data, df_amrf_genome2, all.x = T)
 df_amrf_genome3$Count[which((grepl("[0-9]+", df_amrf_genome3$Count)==F))]<-0
@@ -87,16 +93,18 @@ El segundo muestra qué cantidad de genomas tienen x número de resistencias, s�
 #| label: Plot2
 #nº of Resistences (without Nulls)
 ggplot(df_amrf_genome2, aes(Count, fill=Genus_rev)) + geom_bar(stat="count") +
+  facet_grid(.~Error_type, scale="free_x",space="free") + 
   xlab("Nº OF RESISTENCES") + ylab("OCCURRENCE")
 ```
 
-El tercero muestra qué cantidad de genomas tienen x número de resistencias, incluyendo aquellos que no presentan ninguna.
+El tercero muestra qué cantidad de genomas tienen x número de resistencias, incluyendo aquellos que no presentan ninguna. Para ajustar el tamaño de los grids podemos usar `ggh4x::force_panelsizes(cols=c())`.
 
 ```{r}
 #| label: Plot3
 #nº of Resistences (with Nulls)
-ggplot(df_amrf_genome3, aes(Count, fill=Genus_rev)) + geom_bar(stat="count") +
-  xlab("Nº OF RESISTENCES") + ylab("OCCURRENCE")
+ggplot(df_amrf_genome3[df_amrf_genome3$Count<50,], aes(Count, fill=Genus_rev)) + geom_bar(stat="count") + 
+  facet_grid(.~Error_type,scale = "free_x") + force_panelsizes(cols = c(20,20,1)) +
+  xlab("Nº OF RESISTENCES") + ylab("OCCURRENCE") + scale_x_continuous(breaks = c(0,10,20,30,40,50))
 ```
 
 ## Session Info

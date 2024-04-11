@@ -143,10 +143,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./orit.html"> 
 <span class="menu-text">oriT</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
-  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -199,61 +195,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggh4x' was built under R version 4.3.3</code></pre>
+</div>
+</div>
 <section id="files" class="level2">
 <h2 class="anchored" data-anchor-id="files">Files</h2>
 <p>Los archivos usados son los resultados obtenidos con el script <a href="amrfinder.py">amrfinder.py</a> y un compendio de datos sobre todos los genomas disponibles, del cuál solo nos interesa sus datos taxonómicos y su ID.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_amrf <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"AMRfinder_output.csv"</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">stringsAsFactors =</span> F)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pipolin_summary <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"pipolin_summary_new.tsv"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>taxonomy_data <span class="ot">&lt;-</span> pipolin_summary[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">34</span>,<span class="dv">38</span><span class="sc">:</span><span class="dv">44</span>)]</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(pipolin_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_amrf <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"AMRfinder_output.csv"</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pipolin_summary <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"pipolin_summary_new.tsv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>taxonomy_data <span class="ot">&lt;-</span> pipolin_summary[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">34</span>,<span class="dv">38</span><span class="sc">:</span><span class="dv">44</span>)]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(pipolin_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="obtaining-the-genome_id" class="level2">
 <h2 class="anchored" data-anchor-id="obtaining-the-genome_id">Obtaining the Genome_ID</h2>
 <p>Los datos del Genome_ID se pueden obtener de los hits de cada genoma. Para extraer sólo cierta parte de una string podemos usar la función <code>str_extract()</code> del paquete <code>stringr</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_amrf_new <span class="ot">&lt;-</span> data_amrf</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data_amrf_new<span class="sc">$</span>Genome_ID<span class="ot">&lt;-</span><span class="cn">NA</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data_amrf_new<span class="sc">$</span>Genome_ID<span class="ot">&lt;-</span>stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="at">string =</span> data_amrf_new<span class="sc">$</span>Protein.identifier, <span class="at">pattern =</span> <span class="st">"G_[0-9]+"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>data_amrf_new <span class="ot">&lt;-</span> data_amrf_new[,<span class="fu">c</span>(<span class="dv">19</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">18</span>)]</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data_amrf_merge <span class="ot">&lt;-</span> <span class="fu">merge</span>(data_amrf_new, taxonomy_data, <span class="at">by=</span><span class="st">"Genome_ID"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>data_amrf_filtered <span class="ot">&lt;-</span> <span class="fu">distinct</span>(data_amrf_merge, Genome_ID, Class)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>data_amrf_filtered_merged <span class="ot">&lt;-</span> <span class="fu">merge</span>(data_amrf_filtered, taxonomy_data, <span class="at">all.x =</span> T)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>data_amrf_filtered_merged <span class="ot">&lt;-</span> <span class="fu">unique</span>(data_amrf_filtered_merged)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>data_amrf_filtered_merged <span class="ot">&lt;-</span> data_amrf_filtered_merged <span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(class))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_amrf_new <span class="ot">&lt;-</span> data_amrf</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data_amrf_new<span class="sc">$</span>Genome_ID<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>data_amrf_new<span class="sc">$</span>Genome_ID<span class="ot">&lt;-</span>stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="at">string =</span> data_amrf_new<span class="sc">$</span>Protein.identifier, <span class="at">pattern =</span> <span class="st">"G_[0-9]+"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>data_amrf_new <span class="ot">&lt;-</span> data_amrf_new[,<span class="fu">c</span>(<span class="dv">19</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">18</span>)]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>data_amrf_merge <span class="ot">&lt;-</span> <span class="fu">merge</span>(data_amrf_new, taxonomy_data, <span class="at">by=</span><span class="st">"Genome_ID"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>data_amrf_filtered <span class="ot">&lt;-</span> <span class="fu">distinct</span>(data_amrf_merge, Genome_ID, Class)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>data_amrf_filtered_merged <span class="ot">&lt;-</span> <span class="fu">merge</span>(data_amrf_filtered, taxonomy_data, <span class="at">all.x =</span> T)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>data_amrf_filtered_merged <span class="ot">&lt;-</span> <span class="fu">unique</span>(data_amrf_filtered_merged)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>data_amrf_filtered_merged <span class="ot">&lt;-</span> data_amrf_filtered_merged <span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(class))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="counting-the-occurrence-of-resistences" class="level2">
 <h2 class="anchored" data-anchor-id="counting-the-occurrence-of-resistences">Counting the occurrence of resistences</h2>
 <p>Nos interesa saber la cantidad de genomas que tienen 0, 1, 2, 3, etc. resistencias. Para ello hacemos un df con todos los genomas y hacemos un merge con la información taxonómica. Si el merge lo hacemos según Genome_ID nuestro plot no mostrará la cantidad de genomas que no tienen resistencia. Para mostrar también estos últimos, el merge lo haremos según el data frame que contiene la información taxonómica.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Genome_amrf_name <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">names</span>(<span class="fu">table</span>(data_amrf_new<span class="sc">$</span>Genome)))</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Genome_amrf_count <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">table</span>(data_amrf_new<span class="sc">$</span>Genome))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df_amrf_genome <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Genome_amrf_name, Genome_amrf_count)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df_amrf_genome <span class="ot">&lt;-</span> <span class="fu">distinct</span>(df_amrf_genome)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_amrf_genome) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Genome_ID"</span>,<span class="st">"Count"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df_temp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(taxonomy_data<span class="sc">$</span>Genome_ID, taxonomy_data<span class="sc">$</span>Genus_rev)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>df_temp <span class="ot">&lt;-</span> <span class="fu">distinct</span>(df_temp)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_temp) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Genome_ID"</span>,<span class="st">"Genus_rev"</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>df_amrf_genome2 <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_amrf_genome, df_temp, <span class="at">by=</span><span class="st">"Genome_ID"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>df_amrf_genome3 <span class="ot">&lt;-</span> <span class="fu">merge</span>(taxonomy_data, df_amrf_genome2, <span class="at">all.x =</span> T)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>df_amrf_genome3<span class="sc">$</span>Count[<span class="fu">which</span>((<span class="fu">grepl</span>(<span class="st">"[0-9]+"</span>, df_amrf_genome3<span class="sc">$</span>Count)<span class="sc">==</span>F))]<span class="ot">&lt;-</span><span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Genome_amrf_name <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">names</span>(<span class="fu">table</span>(data_amrf_new<span class="sc">$</span>Genome)))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Genome_amrf_count <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">table</span>(data_amrf_new<span class="sc">$</span>Genome))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df_amrf_genome <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Genome_amrf_name,Genome_amrf_count)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df_amrf_genome <span class="ot">&lt;-</span> <span class="fu">distinct</span>(df_amrf_genome)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_amrf_genome) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Genome_ID"</span>,<span class="st">"Count"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>df_temp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(taxonomy_data<span class="sc">$</span>Genome_ID, taxonomy_data<span class="sc">$</span>Genus_rev)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>df_temp <span class="ot">&lt;-</span> <span class="fu">distinct</span>(df_temp)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_temp) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Genome_ID"</span>,<span class="st">"Genus_rev"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>df_type <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(data_amrf_new<span class="sc">$</span>Genome_ID, data_amrf_new<span class="sc">$</span>Element.type)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>df_type <span class="ot">&lt;-</span> <span class="fu">unique</span>(df_type)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_type) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Genome_ID"</span>,<span class="st">"Error_type"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>df_amrf_genome2 <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_amrf_genome, df_temp, <span class="at">by=</span><span class="st">"Genome_ID"</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>df_amrf_genome2 <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_amrf_genome2, df_type, <span class="at">by=</span><span class="st">"Genome_ID"</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>df_amrf_genome3 <span class="ot">&lt;-</span> <span class="fu">merge</span>(taxonomy_data, df_amrf_genome2, <span class="at">all.x =</span> T)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>df_amrf_genome3<span class="sc">$</span>Count[<span class="fu">which</span>((<span class="fu">grepl</span>(<span class="st">"[0-9]+"</span>, df_amrf_genome3<span class="sc">$</span>Count)<span class="sc">==</span>F))]<span class="ot">&lt;-</span><span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plots" class="level2">
 <h2 class="anchored" data-anchor-id="plots">Plots</h2>
 <p>El primer gráfico muestra la frecuencia relativa de presencia de cierta resistencia, coloreada según pertenencia a los géneros más relevantes de bacterias y dividido por clase taxonómica.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Percentage of Resistence found in relevant Genus</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_amrf_filtered_merged, <span class="fu">aes</span>(<span class="at">x=</span>Class)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count)<span class="sc">/</span><span class="dv">11430</span>, <span class="at">fill =</span> Genus_rev, <span class="at">alpha=</span><span class="fl">0.1</span>), <span class="at">stat =</span> <span class="st">"count"</span>, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>class, <span class="at">scale=</span><span class="st">"free_x"</span>,<span class="at">space=</span><span class="st">"free"</span>) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span>percent) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"RESISTENCE"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Relative Freq"</span>) <span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Percentage of Resistence found in relevant Genus</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_amrf_filtered_merged, <span class="fu">aes</span>(<span class="at">x=</span>Class)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count)<span class="sc">/</span><span class="dv">11430</span>, <span class="at">fill =</span> Genus_rev, <span class="at">alpha=</span><span class="fl">0.1</span>), <span class="at">stat =</span> <span class="st">"count"</span>, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>class, <span class="at">scale=</span><span class="st">"free_x"</span>,<span class="at">space=</span><span class="st">"free"</span>) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span>percent) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"RESISTENCE"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Relative Freq"</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -264,9 +270,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>El segundo muestra qué cantidad de genomas tienen x número de resistencias, sólo para genomas que tengan al menos una.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nº of Resistences (without Nulls)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_amrf_genome2, <span class="fu">aes</span>(Count, <span class="at">fill=</span>Genus_rev)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"count"</span>) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Nº OF RESISTENCES"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"OCCURRENCE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nº of Resistences (without Nulls)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_amrf_genome2, <span class="fu">aes</span>(Count, <span class="at">fill=</span>Genus_rev)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"count"</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>Error_type, <span class="at">scale=</span><span class="st">"free_x"</span>,<span class="at">space=</span><span class="st">"free"</span>) <span class="sc">+</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Nº OF RESISTENCES"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"OCCURRENCE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -275,11 +282,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>El tercero muestra qué cantidad de genomas tienen x número de resistencias, incluyendo aquellos que no presentan ninguna.</p>
+<p>El tercero muestra qué cantidad de genomas tienen x número de resistencias, incluyendo aquellos que no presentan ninguna. Para ajustar el tamaño de los grids podemos usar <code>ggh4x::force_panelsizes(cols=c())</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nº of Resistences (with Nulls)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_amrf_genome3, <span class="fu">aes</span>(Count, <span class="at">fill=</span>Genus_rev)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"count"</span>) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Nº OF RESISTENCES"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"OCCURRENCE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nº of Resistences (with Nulls)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_amrf_genome3[df_amrf_genome3<span class="sc">$</span>Count<span class="sc">&lt;</span><span class="dv">50</span>,], <span class="fu">aes</span>(Count, <span class="at">fill=</span>Genus_rev)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"count"</span>) <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>Error_type,<span class="at">scale =</span> <span class="st">"free_x"</span>) <span class="sc">+</span> <span class="fu">force_panelsizes</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Nº OF RESISTENCES"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"OCCURRENCE"</span>) <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -312,9 +320,9 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] lubridate_1.9.3 forcats_1.0.0   stringr_1.5.1   dplyr_1.1.4    
- [5] purrr_1.0.2     readr_2.1.4     tidyr_1.3.0     tibble_3.2.1   
- [9] tidyverse_2.0.0 ggplot2_3.4.4  
+ [1] ggh4x_0.2.8     lubridate_1.9.3 forcats_1.0.0   stringr_1.5.1  
+ [5] dplyr_1.1.4     purrr_1.0.2     readr_2.1.4     tidyr_1.3.0    
+ [9] tibble_3.2.1    tidyverse_2.0.0 ggplot2_3.4.4  
 
 loaded via a namespace (and not attached):
  [1] bit_4.0.5         gtable_0.3.4      jsonlite_1.8.8    crayon_1.5.2     
