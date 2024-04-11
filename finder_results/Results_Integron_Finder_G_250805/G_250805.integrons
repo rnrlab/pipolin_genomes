@@ -1,0 +1,9 @@
+# cmd: integron_finder --local-max --promoter-attI --cpu 32 --outdir . --pdf -v /home/victor2022/Pipolin_screening/screening_v13/results_Bacteria_genbank_2022-11-11_14.01.58/Results_EP/G_250805/G_250805.fa
+ID_integron	ID_replicon	element	pos_beg	pos_end	strand	evalue	type_elt	annotation	model	type	default	distance_2attC	considered_topology
+integron_01	G_250805_r_257	G_250805_r_257_19	20769	21419	1	NA	protein	protein	NA	CALIN	No	NA	lin
+integron_01	G_250805_r_257	attc_001	21128	21201	-1	0.034	attC	attC	attc_4	CALIN	No	NA	lin
+integron_01	G_250805_r_257	G_250805_r_257_20	21599	23005	1	NA	protein	protein	NA	CALIN	No	NA	lin
+integron_01	G_250805_r_257	G_250805_r_257_21	22995	24710	1	NA	protein	protein	NA	CALIN	No	NA	lin
+integron_01	G_250805_r_257	G_250805_r_257_22	24720	25265	1	NA	protein	protein	NA	CALIN	No	NA	lin
+integron_01	G_250805_r_257	attc_002	25077	25133	-1	0.45	attC	attC	attc_4	CALIN	No	3876.0	lin
+integron_01	G_250805_r_257	G_250805_r_257_23	25262	26020	1	NA	protein	protein	NA	CALIN	No	NA	lin

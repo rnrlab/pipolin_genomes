@@ -1,0 +1,16 @@
+# cmd: integron_finder --local-max --promoter-attI --cpu 32 --outdir . --pdf -v /home/victor2022/Pipolin_screening/screening_v13/results_Bacteria_genbank_2022-11-11_14.01.58/Results_EP/G_350205/G_350205.fa
+ID_integron	ID_replicon	element	pos_beg	pos_end	strand	evalue	type_elt	annotation	model	type	default	distance_2attC	considered_topology
+integron_01	G_350205_r_51	G_350205_r_51_18	13190	13534	-1	NA	protein	protein	NA	complete	No	NA	lin
+integron_01	G_350205_r_51	attc_001	13550	13644	-1	0.00013	attC	attC	attc_4	complete	No	NA	lin
+integron_01	G_350205_r_51	G_350205_r_51_19	13639	14112	-1	NA	protein	protein	NA	complete	No	NA	lin
+integron_01	G_350205_r_51	attI1	14130	14188	-1	NA	attI	attI_1	NA	complete	No	NA	lin
+integron_01	G_350205_r_51	P_intI1	14213	14247	1	NA	Promoter	Pint_1	NA	complete	No	NA	lin
+integron_01	G_350205_r_51	Pc_int1	14239	14265	-1	NA	Promoter	Pc_1	NA	complete	No	NA	lin
+integron_01	G_350205_r_51	G_350205_r_51_20	14269	15282	1	1.9e-25	protein	intI	intersection_tyr_intI	complete	No	NA	lin
+integron_01	G_350205_r_101	G_350205_r_101_2	597	1610	-1	1.9e-25	protein	intI	intersection_tyr_intI	complete	No	NA	lin
+integron_01	G_350205_r_101	Pc_int1	1613	1639	1	NA	Promoter	Pc_1	NA	complete	No	NA	lin
+integron_01	G_350205_r_101	P_intI1	1631	1665	-1	NA	Promoter	Pint_1	NA	complete	No	NA	lin
+integron_01	G_350205_r_101	attI1	1690	1748	1	NA	attI	attI_1	NA	complete	No	NA	lin
+integron_01	G_350205_r_101	G_350205_r_101_3	1767	2240	1	NA	protein	protein	NA	complete	No	NA	lin
+integron_01	G_350205_r_101	attc_001	2235	2329	1	0.00013	attC	attC	attc_4	complete	No	NA	lin
+integron_01	G_350205_r_101	G_350205_r_101_4	2345	2689	1	NA	protein	protein	NA	complete	No	NA	lin

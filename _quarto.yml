@@ -1,0 +1,22 @@
+project:
+  type: website
+
+website:
+  title: "Prácticas - Guillermo Cerrillo"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - virulencefinder.qmd
+      - amrfinder.qmd
+      - integron.qmd
+      - orit.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+

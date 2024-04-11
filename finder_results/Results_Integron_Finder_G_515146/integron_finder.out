@@ -1,0 +1,279 @@
+
+**************************************************************************
+ ___       _                               _____ _           _
+|_ _|_ __ | |_ ___  __ _ _ __ ___  _ __   |  ___(_)_ __   __| | ___ _ __
+ | || '_ \| __/ _ \/ _` | '__/ _ \| '_ \  | |_  | | '_ \ / _` |/ _ \ '__|
+ | || | | | ||  __/ (_| | | | (_) | | | | |  _| | | | | | (_| |  __/ |
+|___|_| |_|\__\___|\__, |_|  \___/|_| |_| |_|   |_|_| |_|\__,_|\___|_|
+                   |___/
+
+**************************************************************************
+
+integron_finder version 2.0.3
+Using:
+ - Python 3.12.2 | packaged by conda-forge | (main, Feb 16 2024, 20:50:58) [GCC 12.3.0]
+ - numpy 1.26.4
+ - pandas 2.2.1
+ - matplolib 3.8.3
+ - biopython 1.83
+
+ - Prodigal V2.6.3: February, 2016
+ - INFERNAL 1.1.2 (July 2016)
+ - HMMER 3.1b2 (February 2015); http://hmmer.org/
+
+Authors:
+ - Jean Cury, Bertrand Neron, Eduardo Rocha,
+
+Citation:
+
+ Néron, B.; Littner, E.; Haudiquet, M.; Perrin, A.; Cury, J.; Rocha, E.P.C. 
+ IntegronFinder 2.0: Identification and Analysis of Integrons across Bacteria, with a Focus on Antibiotic Resistance in Klebsiella. 
+ Microorganisms 2022, 10, 700. https://doi.org/10.3390/microorganisms10040700
+
+ If you use --func-annot in conjunction with file NCBIfam-AMRFinder.hmm please also cite
+
+ Haft, DH et al., Nucleic Acids Res. 2018 Jan 4;46(D1):D851-D860
+ PMID: 29112715
+
+
+                     =======================
+
+integron_finder is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+integron_finder is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program (COPYING file).
+If not, see <http://www.gnu.org/licenses/>.
+
+                     =======================
+
+command used: integron_finder --local-max --promoter-attI --cpu 32 --outdir . --pdf -v /home/victor2022/Pipolin_screening/screening_v13/results_Bacteria_genbank_2022-11-11_14.01.58/Results_EP/G_515146/G_515146.fa
+
+                     =======================
+
+[0m
+INFO     : finder: L 648 : ############ Processing replicon G_515146_r_1 (1/8) ############
+
+DEBUG    : prot_db: L 651 : run prodigal: /home/sie/mambaforge/envs/integron_finder/bin/prodigal  -i /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1.fst -a /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1.prt -o /dev/null -q 
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1_intI_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1_intI.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/integron_integrase.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1.prt
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1_phage_int_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1_phage_int.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/phage-int.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1.prt
+INFO     : finder: L 349 : Starting Default search ... :
+DEBUG    : infernal: L 135 : run cmsearch: /home/sie/mambaforge/envs/integron_finder/bin/cmsearch --cpu 32 -A /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1_attc.res --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1_attc_table.res -E 10 --incE 1.0 /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/attc_4.cm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1.fst
+INFO     : finder: L 356 : Default search done... : 
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1_phage_int.res
+DEBUG    : infernal: L 58 : read_infernal /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1_attc_table.res, G_515146_r_1, 47, evalue=1.0, size_max_attc=200, size_min_attc=40
+INFO     : integron: L 256 : In replicon G_515146_r_1, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 363 : Starting search with local_max...:
+INFO     : finder: L 375 : Search with local_max done... :
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_r_1/G_515146_r_1_phage_int.res
+DEBUG    : integron: L 250 : filter out 'CALIN' with less attC sites than 2
+INFO     : integron: L 256 : In replicon G_515146_r_1, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 414 : Writing out results for replicon G_515146_r_1
+DEBUG    : finder: L 423 : Writing integron_file /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_r_1.integrons
+INFO     : finder: L 648 : ############ Processing replicon G_515146_p_1 (2/8) ############
+
+DEBUG    : prot_db: L 651 : run prodigal: /home/sie/mambaforge/envs/integron_finder/bin/prodigal -p meta -i /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1.fst -a /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1.prt -o /dev/null -q 
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_intI_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_intI.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/integron_integrase.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1.prt
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_phage_int_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_phage_int.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/phage-int.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1.prt
+INFO     : finder: L 349 : Starting Default search ... :
+DEBUG    : infernal: L 135 : run cmsearch: /home/sie/mambaforge/envs/integron_finder/bin/cmsearch --cpu 32 -A /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_attc.res --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_attc_table.res -E 10 --incE 1.0 /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/attc_4.cm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1.fst
+INFO     : finder: L 356 : Default search done... : 
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_phage_int.res
+DEBUG    : infernal: L 58 : read_infernal /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_attc_table.res, G_515146_p_1, 47, evalue=1.0, size_max_attc=200, size_min_attc=40
+INFO     : integron: L 256 : In replicon G_515146_p_1, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 1 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 363 : Starting search with local_max...:
+DEBUG    : infernal: L 212 : run cmsearch: /home/sie/mambaforge/envs/integron_finder/bin/cmsearch -Z 0.094635  --max --cpu 32 -A /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_41073_50032_subseq_attc.res --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_41073_50032_subseq_attc_table.res -E 10 --incE 1.0 /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/attc_4.cm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_subseq.fst
+DEBUG    : infernal: L 58 : read_infernal /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_41073_50032_subseq_attc_table.res, G_515146_p_1, 47, evalue=1.0, size_max_attc=200, size_min_attc=40
+DEBUG    : infernal: L 84 : Before filtering on evalue 1.0, there were 3 attC sites
+DEBUG    : infernal: L 86 : After filtering on evalue 1.0, there are now 0 attC sites
+DEBUG    : infernal: L 89 : After filtering on size max: 200 and size min: 40, there are now 0 attC sites
+INFO     : finder: L 375 : Search with local_max done... :
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_1/G_515146_p_1_phage_int.res
+DEBUG    : integron: L 250 : filter out 'CALIN' with less attC sites than 2
+INFO     : integron: L 256 : In replicon G_515146_p_1, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 1 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 397 : Adding promoters and attI ... :
+INFO     : finder: L 414 : Writing out results for replicon G_515146_p_1
+DEBUG    : finder: L 423 : Writing integron_file /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_1.integrons
+INFO     : finder: L 648 : ############ Processing replicon G_515146_p_2 (3/8) ############
+
+DEBUG    : prot_db: L 651 : run prodigal: /home/sie/mambaforge/envs/integron_finder/bin/prodigal -p meta -i /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2.fst -a /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2.prt -o /dev/null -q 
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2_intI_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2_intI.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/integron_integrase.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2.prt
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2_phage_int_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2_phage_int.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/phage-int.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2.prt
+INFO     : finder: L 349 : Starting Default search ... :
+DEBUG    : infernal: L 135 : run cmsearch: /home/sie/mambaforge/envs/integron_finder/bin/cmsearch --cpu 32 -A /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2_attc.res --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2_attc_table.res -E 10 --incE 1.0 /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/attc_4.cm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2.fst
+INFO     : finder: L 356 : Default search done... : 
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2_phage_int.res
+DEBUG    : infernal: L 58 : read_infernal /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2_attc_table.res, G_515146_p_2, 47, evalue=1.0, size_max_attc=200, size_min_attc=40
+INFO     : integron: L 256 : In replicon G_515146_p_2, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 363 : Starting search with local_max...:
+INFO     : finder: L 375 : Search with local_max done... :
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_2/G_515146_p_2_phage_int.res
+DEBUG    : integron: L 250 : filter out 'CALIN' with less attC sites than 2
+INFO     : integron: L 256 : In replicon G_515146_p_2, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 414 : Writing out results for replicon G_515146_p_2
+DEBUG    : finder: L 423 : Writing integron_file /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_2.integrons
+INFO     : finder: L 648 : ############ Processing replicon G_515146_p_3 (4/8) ############
+
+DEBUG    : prot_db: L 651 : run prodigal: /home/sie/mambaforge/envs/integron_finder/bin/prodigal  -i /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3.fst -a /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3.prt -o /dev/null -q 
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3_intI_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3_intI.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/integron_integrase.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3.prt
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3_phage_int_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3_phage_int.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/phage-int.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3.prt
+INFO     : finder: L 349 : Starting Default search ... :
+DEBUG    : infernal: L 135 : run cmsearch: /home/sie/mambaforge/envs/integron_finder/bin/cmsearch --cpu 32 -A /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3_attc.res --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3_attc_table.res -E 10 --incE 1.0 /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/attc_4.cm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3.fst
+INFO     : finder: L 356 : Default search done... : 
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3_phage_int.res
+DEBUG    : infernal: L 58 : read_infernal /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3_attc_table.res, G_515146_p_3, 47, evalue=1.0, size_max_attc=200, size_min_attc=40
+INFO     : integron: L 256 : In replicon G_515146_p_3, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 363 : Starting search with local_max...:
+INFO     : finder: L 375 : Search with local_max done... :
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_3/G_515146_p_3_phage_int.res
+DEBUG    : integron: L 250 : filter out 'CALIN' with less attC sites than 2
+INFO     : integron: L 256 : In replicon G_515146_p_3, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 414 : Writing out results for replicon G_515146_p_3
+DEBUG    : finder: L 423 : Writing integron_file /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_3.integrons
+INFO     : finder: L 648 : ############ Processing replicon G_515146_p_4 (5/8) ############
+
+DEBUG    : prot_db: L 651 : run prodigal: /home/sie/mambaforge/envs/integron_finder/bin/prodigal -p meta -i /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4.fst -a /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4.prt -o /dev/null -q 
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4_intI_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4_intI.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/integron_integrase.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4.prt
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4_phage_int_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4_phage_int.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/phage-int.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4.prt
+INFO     : finder: L 349 : Starting Default search ... :
+DEBUG    : infernal: L 135 : run cmsearch: /home/sie/mambaforge/envs/integron_finder/bin/cmsearch --cpu 32 -A /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4_attc.res --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4_attc_table.res -E 10 --incE 1.0 /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/attc_4.cm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4.fst
+INFO     : finder: L 356 : Default search done... : 
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4_phage_int.res
+DEBUG    : infernal: L 58 : read_infernal /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4_attc_table.res, G_515146_p_4, 47, evalue=1.0, size_max_attc=200, size_min_attc=40
+INFO     : integron: L 256 : In replicon G_515146_p_4, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 363 : Starting search with local_max...:
+INFO     : finder: L 375 : Search with local_max done... :
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_4/G_515146_p_4_phage_int.res
+DEBUG    : integron: L 250 : filter out 'CALIN' with less attC sites than 2
+INFO     : integron: L 256 : In replicon G_515146_p_4, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 414 : Writing out results for replicon G_515146_p_4
+DEBUG    : finder: L 423 : Writing integron_file /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_4.integrons
+INFO     : finder: L 648 : ############ Processing replicon G_515146_p_5 (6/8) ############
+
+DEBUG    : prot_db: L 651 : run prodigal: /home/sie/mambaforge/envs/integron_finder/bin/prodigal -p meta -i /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5.fst -a /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5.prt -o /dev/null -q 
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5_intI_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5_intI.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/integron_integrase.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5.prt
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5_phage_int_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5_phage_int.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/phage-int.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5.prt
+INFO     : finder: L 349 : Starting Default search ... :
+DEBUG    : infernal: L 135 : run cmsearch: /home/sie/mambaforge/envs/integron_finder/bin/cmsearch --cpu 32 -A /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5_attc.res --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5_attc_table.res -E 10 --incE 1.0 /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/attc_4.cm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5.fst
+INFO     : finder: L 356 : Default search done... : 
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5_phage_int.res
+DEBUG    : infernal: L 58 : read_infernal /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5_attc_table.res, G_515146_p_5, 47, evalue=1.0, size_max_attc=200, size_min_attc=40
+INFO     : integron: L 256 : In replicon G_515146_p_5, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 363 : Starting search with local_max...:
+INFO     : finder: L 375 : Search with local_max done... :
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_5/G_515146_p_5_phage_int.res
+DEBUG    : integron: L 250 : filter out 'CALIN' with less attC sites than 2
+INFO     : integron: L 256 : In replicon G_515146_p_5, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 414 : Writing out results for replicon G_515146_p_5
+DEBUG    : finder: L 423 : Writing integron_file /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_5.integrons
+INFO     : finder: L 648 : ############ Processing replicon G_515146_p_6 (7/8) ############
+
+DEBUG    : prot_db: L 651 : run prodigal: /home/sie/mambaforge/envs/integron_finder/bin/prodigal -p meta -i /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6.fst -a /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6.prt -o /dev/null -q 
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6_intI_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6_intI.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/integron_integrase.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6.prt
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6_phage_int_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6_phage_int.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/phage-int.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6.prt
+INFO     : finder: L 349 : Starting Default search ... :
+DEBUG    : infernal: L 135 : run cmsearch: /home/sie/mambaforge/envs/integron_finder/bin/cmsearch --cpu 32 -A /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6_attc.res --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6_attc_table.res -E 10 --incE 1.0 /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/attc_4.cm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6.fst
+INFO     : finder: L 356 : Default search done... : 
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6_phage_int.res
+DEBUG    : infernal: L 58 : read_infernal /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6_attc_table.res, G_515146_p_6, 47, evalue=1.0, size_max_attc=200, size_min_attc=40
+INFO     : integron: L 256 : In replicon G_515146_p_6, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 363 : Starting search with local_max...:
+INFO     : finder: L 375 : Search with local_max done... :
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_6/G_515146_p_6_phage_int.res
+DEBUG    : integron: L 250 : filter out 'CALIN' with less attC sites than 2
+INFO     : integron: L 256 : In replicon G_515146_p_6, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 414 : Writing out results for replicon G_515146_p_6
+DEBUG    : finder: L 423 : Writing integron_file /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_6.integrons
+INFO     : finder: L 648 : ############ Processing replicon G_515146_p_7 (8/8) ############
+
+DEBUG    : prot_db: L 651 : run prodigal: /home/sie/mambaforge/envs/integron_finder/bin/prodigal -p meta -i /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7.fst -a /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7.prt -o /dev/null -q 
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7_intI_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7_intI.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/integron_integrase.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7.prt
+DEBUG    : integrase: L 88 : run hmmsearch: /home/sie/mambaforge/envs/integron_finder/bin/hmmsearch --cut_ga --cpu 32 --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7_phage_int_table.res -o /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7_phage_int.res /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/phage-int.hmm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7.prt
+INFO     : finder: L 349 : Starting Default search ... :
+DEBUG    : infernal: L 135 : run cmsearch: /home/sie/mambaforge/envs/integron_finder/bin/cmsearch --cpu 32 -A /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7_attc.res --tblout /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7_attc_table.res -E 10 --incE 1.0 /home/sie/mambaforge/envs/integron_finder/lib/python3.12/site-packages/integron_finder/data/Models/attc_4.cm /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7.fst
+INFO     : finder: L 356 : Default search done... : 
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7_phage_int.res
+DEBUG    : infernal: L 58 : read_infernal /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7_attc_table.res, G_515146_p_7, 47, evalue=1.0, size_max_attc=200, size_min_attc=40
+INFO     : integron: L 256 : In replicon G_515146_p_7, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 363 : Starting search with local_max...:
+INFO     : finder: L 375 : Search with local_max done... :
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7_intI.res
+DEBUG    : hmm: L 115 : Parse /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/tmp_G_515146_p_7/G_515146_p_7_phage_int.res
+DEBUG    : integron: L 250 : filter out 'CALIN' with less attC sites than 2
+INFO     : integron: L 256 : In replicon G_515146_p_7, there are:
+INFO     : integron: L 257 : - 0 complete integron(s) found with a total 0 attC site(s)
+INFO     : integron: L 260 : - 0 CALIN element(s) found with a total of 0 attC site(s)
+INFO     : integron: L 263 : - 0 In0 element(s) found with a total of 0 attC site
+INFO     : finder: L 414 : Writing out results for replicon G_515146_p_7
+DEBUG    : finder: L 423 : Writing integron_file /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_7.integrons
+INFO     : finder: L 660 : Merging integrons results.
+
+DEBUG    : results: L 79 : merging_results /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_r_1.integrons /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_1.integrons /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_2.integrons /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_3.integrons /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_4.integrons /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_5.integrons /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_6.integrons /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_7.integrons
+DEBUG    : results: L 79 : merging_results /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_r_1.summary /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_1.summary /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_2.summary /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_3.summary /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_4.summary /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_5.summary /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_6.summary /home/sie/Guille/integron/integron_finder_results/Results_Integron_Finder_G_515146/G_515146_p_7.summary

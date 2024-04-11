@@ -1,0 +1,137 @@
+---
+title: "Integron Finder"
+author: "Guillermo Cerrillo"
+format: html
+editor: visual
+---
+
+```{r}
+#| label: load-packages
+#| message: false
+#| echo: false
+library(ggplot2)
+library(tidyverse)
+library(stringr)
+library(dplyr)
+library(rebus)
+```
+
+# Filtering
+
+Previo al integron_finder hemos corrido otro script llamado integron_filtering para realizar un cribado preeliminar de nuestros genomas. Desde la consola de Linux ejecutamos primero el archivo [integron_filtering.sh](integron_filtering.sh) que, una vez terminada su función, activará otro archivo llamado [genome_filter.py](genome_filter.py).
+
+## Files - Testing
+
+Analizando resultados de integron_finder con R (prueba con 5 genomas aleatorios) :
+
+-   Obtenemos la lista de los archivos a analizar con `list_summary <- list.files(recursive=TRUE, pattern = "\\.summary$")`
+
+<!-- -->
+
+-   Creamos un df vacío para agregar los resultados `summary_df<-data.frame("Genome_ID" = c(NA), "CALIN" = c(NA), "complete" = c(NA), "In0" = c(NA))`
+
+    -   La fila vacía la eliminaremos después de obtener todo los ressultados `summary_df <- summary_df %>% na.omit()` (Paquete tidyverse)
+
+<!-- -->
+
+-   Hacemos un bucle for para leer todos los documentos de la lista:
+
+    -   Importante en `read.table` añadir `skip=1` para omitir la primera línea de texto y `header=T` para que tod esté en su sitio.
+
+    -   Para obtener el número de genoma, usamos la función `str_extract()` (paquete stringr) con el patrón `pattern = "G_[0-9]+"`
+
+    -   Por cada archivo, obtenemos un df temporal con su G_ID y la suma de cada columna con `sum(file$column)`
+
+    -   Añadidimos este df al creado anteriormente como una nueva fila con `summary_df[nrow(summary_df) + 1,] <- df_temp`
+
+<!-- -->
+
+-   Al acabar el bucle, podemos eliminar el df_temp y el objeto de lectura para mantener el environment organizado
+
+<!-- -->
+
+-   Abrimos los datos taxonómicos que se encuentran en `pipolin_summary_new.tsv` y usamos `merge()` para añadirlos a nuestro df
+
+    -   De pipolin_summary_new.tsv sólo nos interesant las columnas Genome_ID \[3\] y Genus_rev \[34\]
+
+<!-- -->
+
+-   Usaremos `stack()` para obtener 2 columnas (Count e integron_type) con la que más tarde podremos dividir el gráfico en 3 (CALIN, complete e In0)
+
+```{r}
+#| label: files-test
+#| message: false
+pipolin_summary <- read_tsv("pipolin_summary_new.tsv")
+taxonomy_data <- pipolin_summary[,c(3,34,38:44)]
+rm(pipolin_summary)
+taxonomy_data <- taxonomy_data[,c(1,2)]
+summary_df<-data.frame("Genome_ID" = c(NA), "CALIN" = c(NA), "complete" = c(NA), "In0" = c(NA))
+list_summary <- list.files(recursive=TRUE, pattern = "\\.summary$")
+
+for (k in 1:length(list_summary)){
+  summary <- read.table(list_summary[k], sep="\t", skip = 1, header = T)
+  G_ID <- str_extract(string = summary$ID_replicon[1], pattern = "G_[0-9]+")
+  df <- data.frame("Genome_ID" = c(G_ID), "CALIN" = c(sum(summary$CALIN)), "complete" = c(sum(summary$complete)), "In0" = c(sum(summary$In0)))
+  summary_df[nrow(summary_df) + 1,] <- df
+}
+
+rm(df, summary)
+summary_df <- summary_df %>% na.omit()
+merged_df <- merge(summary_df, taxonomy_data, by="Genome_ID")
+stacked <- cbind(summary_df$Genome_ID,stack(summary_df[,2:4]),merged_df$Genus_rev)
+names(stacked) <- c("Genome_ID","Count","Integron_type","Genus_rev")
+```
+
+## Plots - Testing
+
+Hacemos un gráfico de barras con `ggplot()` que muestre en el eje x la cantidad de integrones y en el eje y en porcentaje de genomas que tienen esa cantidad de integrones:
+
+-   Para evitar números decimales en el eje x podemos usar `scale_x_continuous(breaks=c(0,1,2)`
+
+-   Los números en el vector breaks serán aquellos que aparezcan el la columna Count del df stacked
+
+```{r}
+#| label: plots-test
+ggplot(stacked, aes(x=Count)) +
+  geom_bar(aes(y = after_stat(count)/(18462/3), fill = Genus_rev, alpha=0.1), stat = "count", col = "black", alpha = 0.6) +
+  facet_grid(.~Integron_type, scale="free",space="free") + scale_y_continuous(labels=scales::percent) + xlab("nº of INTEGRONS") + ylab("Relative Freq") +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size = 10, face = "bold")) + scale_x_continuous()
+```
+
+## Files - Final
+
+Estos datos fueron obtenidos con el ordenador del laboratorio, pero usando el mismo código que el que se empleó antes. Para reducir el tamaño del gráfico podemos usar el paquete `rebus()`. Así juntamos todos los valores mayores que 10 en uno que interpretaremos como "Más de 10 integrones":
+
+```{r}
+#| label: files-final
+#| message: false
+integron_summary <- read.csv("integron_summary.csv", stringsAsFactors = F)
+new_summary <- integron_summary
+interval <- number_range(11,100)
+new_summary$Count[which(grepl(interval,integron_summary$Count)==T)]<-11
+```
+
+## Plots - Final
+
+Los gráficos que se muestran a continuación son 1.- Aquel que muestra toda la información al completo y 2.- Aquel en el que agrupamos todos los resutlados mayores que 10 en uno solo (\>10).
+
+```{r}
+#| label: plots-final
+ggplot(integron_summary, aes(x=Count)) +
+  geom_bar(aes(y = after_stat(count)/(18462/3), fill = Genus_rev, alpha=0.1), stat = "count", col = "black", alpha = 0.6) +
+  facet_grid(.~Integron_type, scale="free",space="free") + scale_y_continuous(labels=scales::percent) + xlab("nº of INTEGRONS") + ylab("Relative Freq") +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size = 10, face = "bold")) + scale_x_continuous()
+
+ggplot(new_summary, aes(x=Count)) +
+  geom_bar(aes(y = after_stat(count)/(18462/3), fill = Genus_rev, alpha=0.1), stat = "count", col = "black", alpha = 0.6) +
+  facet_grid(.~Integron_type, scale="free",space="free") + scale_y_continuous(labels=scales::percent) + xlab("nº of INTEGRONS") + ylab("Relative Freq") +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size = 10, face = "bold")) + scale_x_continuous(breaks = c(0,1,2,3,4,5,6,7,8,9,10,11), labels = c("0","1","2","3","4","5","6","7","8","9","10",">10"))
+```
+
+## Session Info
+
+```{r}
+#| label: session-info
+#| echo: false
+sessionInfo()
+```

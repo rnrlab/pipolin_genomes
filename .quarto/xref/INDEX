@@ -1,0 +1,20 @@
+{
+  "about.qmd": {
+    "about.html": "aceb3512"
+  },
+  "amrfinder.qmd": {
+    "amrfinder.html": "063cc6cd"
+  },
+  "index.qmd": {
+    "index.html": "ee6627d6"
+  },
+  "integron.qmd": {
+    "integron.html": "49615bfa"
+  },
+  "orit.qmd": {
+    "orit.html": "5fd9c135"
+  },
+  "virulencefinder.qmd": {
+    "virulencefinder.html": "2bc19b8d"
+  }
+}

@@ -1,0 +1,10 @@
+# cmd: integron_finder --local-max --promoter-attI --cpu 32 --outdir . --pdf -v /home/victor2022/Pipolin_screening/screening_v13/results_Bacteria_genbank_2022-11-11_14.01.58/Results_EP/G_515146/G_515146.fa
+ID_replicon	CALIN	complete	In0	topology	size
+G_515146_r_1	0	0	0	lin	5112861
+G_515146_p_1	0	0	1	lin	94635
+G_515146_p_2	0	0	0	lin	9782
+G_515146_p_3	0	0	0	lin	327617
+G_515146_p_4	0	0	0	lin	90410
+G_515146_p_5	0	0	0	lin	75205
+G_515146_p_6	0	0	0	lin	48894
+G_515146_p_7	0	0	0	lin	5065

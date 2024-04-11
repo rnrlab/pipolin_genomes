@@ -1,0 +1,81 @@
+---
+title: "oriT"
+author: "Guillermo Cerrillo"
+format: html
+editor: visual
+---
+
+```{r}
+#| label: load-packages
+#| message: false
+#| echo: false
+library(ggplot2)
+library(tidyverse)
+library(stringr)
+library(dplyr)
+```
+
+## Files
+
+Los archivos usados son los resultados mediante un script que busca posibles oriTs en pipolinas bacterianas y un compendio de datos sobre todos los genomas disponibles, del cuál solo nos interesa sus datos taxonómicos y su ID.
+
+```{r}
+#| label: files
+#| message: false
+oriT_test <- read_tsv("test_oriT.tsv", col_names = F)
+pipolin_summary <- read_tsv("pipolin_summary_new.tsv")
+taxonomy_data <- pipolin_summary[,c(3,34,38:44)]
+rm(pipolin_summary)
+```
+
+## Obtaining the Genome_ID
+
+En este caso, como la información que contiene el Genome_ID siempre va seguida de sólo dos posbiles strings ("\_0v0*" y "\_*1v0"), podemos simplemente sustituir estas terminaciones por un espacio vacío ("") usando `gsub()`.
+
+```{r}
+#| label: Genome_ID
+colnames(oriT_test) <- c("Genome_ID", "subject acc.ver", "% identity", "alignment length", "mismatches", "gap opens", "q. start", "q. end", "s. start", "s. end", "evalue", "bit score")
+oriT_test$Genome_ID <- gsub("_0v0", "", oriT_test$Genome_ID)
+oriT_test$Genome_ID <- gsub("_1v0", "", oriT_test$Genome_ID)
+
+oriT_test_merged <- merge(oriT_test, taxonomy_data, by="Genome_ID")
+oriT_test_merged <- unique(oriT_test_merged)
+```
+
+## Counting the occurrence of oriTs
+
+Nos interesa saber la cantidad de genomas que tienen 0, 1, 2, 3, etc. oriTs. Para ello hacemos un df con todos los genomas y le agregamos la información taxonómica usando `merge()`.
+
+```{r}
+#| label: Count
+oriT_name <- as.vector(names(table(oriT_test_merged$Genome_ID)))
+oriT_count <- as.vector(table(oriT_test_merged$Genome_ID))
+oriT_df <- data.frame(oriT_name, oriT_count)
+oriT_df <- distinct(oriT_df)
+names(oriT_df) <- c("Genome_ID","Count")
+
+df_temp <- data.frame(oriT_test_merged$Genome_ID, oriT_test_merged$Genus_rev)
+df_temp <- distinct(df_temp)
+names(df_temp) <- c("Genome_ID","Genus_rev")
+
+oriT_df_merged <- merge(oriT_df, df_temp, by="Genome_ID")
+```
+
+## Plots
+
+El gráfico muestra qué cantidad de genomas tienen n número de oriTs, coloreado según pertenencia a un género bacteriano relevantes. En este caso, desde un principio sólo hemos contado los genomas que tengan al menos 1 oriT.
+
+```{r}
+#| label: Plots
+#nº of oriTs
+ggplot(oriT_df_merged, aes(Count, fill=Genus_rev)) + geom_bar(stat="count") +
+  xlab("Nº of oriTs") + ylab("OCCURRENCE")
+```
+
+## Session Info
+
+```{r}
+#| label: session-info
+#| echo: false
+sessionInfo()
+```

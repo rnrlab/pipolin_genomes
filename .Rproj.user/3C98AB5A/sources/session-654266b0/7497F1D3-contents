@@ -1,0 +1,108 @@
+---
+title: "AMRfinder"
+author: "Guillermo Cerrillo"
+format: html
+editor: visual
+---
+
+```{r}
+#| label: load-packages
+#| message: false
+#| echo: false
+library(ggplot2)
+library(tidyverse)
+library(stringr)
+library(dplyr)
+```
+
+## Files
+
+Los archivos usados son los resultados obtenidos con el script [amrfinder.py](amrfinder.py) y un compendio de datos sobre todos los genomas disponibles, del cuál solo nos interesa sus datos taxonómicos y su ID.
+
+```{r}
+#| label: files
+#| message: false
+data_amrf <- read.csv("AMRfinder_output.csv", sep="\t", stringsAsFactors = F)
+pipolin_summary <- read_tsv("pipolin_summary_new.tsv")
+taxonomy_data <- pipolin_summary[,c(3,34,38:44)]
+rm(pipolin_summary)
+```
+
+## Obtaining the Genome_ID
+
+Los datos del Genome_ID se pueden obtener de los hits de cada genoma. Para extraer sólo cierta parte de una string podemos usar la función `str_extract()` del paquete `stringr`.
+
+```{r}
+#| label: Genome_ID
+data_amrf_new <- data_amrf
+data_amrf_new$Genome_ID<-NA
+data_amrf_new$Genome_ID<-stringr::str_extract(string = data_amrf_new$Protein.identifier, pattern = "G_[0-9]+")
+data_amrf_new <- data_amrf_new[,c(19,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18)]
+data_amrf_merge <- merge(data_amrf_new, taxonomy_data, by="Genome_ID")
+
+data_amrf_filtered <- distinct(data_amrf_merge, Genome_ID, Class)
+data_amrf_filtered_merged <- merge(data_amrf_filtered, taxonomy_data, all.x = T)
+data_amrf_filtered_merged <- unique(data_amrf_filtered_merged)
+data_amrf_filtered_merged <- data_amrf_filtered_merged %>%filter(!is.na(class))
+```
+
+## Counting the occurrence of resistences
+
+Nos interesa saber la cantidad de genomas que tienen 0, 1, 2, 3, etc. resistencias. Para ello hacemos un df con todos los genomas y hacemos un merge con la información taxonómica. Si el merge lo hacemos según Genome_ID nuestro plot no mostrará la cantidad de genomas que no tienen resistencia. Para mostrar también estos últimos, el merge lo haremos según el data frame que contiene la información taxonómica.
+
+```{r}
+#| label: Count
+Genome_amrf_name <- as.vector(names(table(data_amrf_new$Genome)))
+Genome_amrf_count <- as.vector(table(data_amrf_new$Genome))
+df_amrf_genome <- data.frame(Genome_amrf_name, Genome_amrf_count)
+df_amrf_genome <- distinct(df_amrf_genome)
+names(df_amrf_genome) <- c("Genome_ID","Count")
+
+df_temp <- data.frame(taxonomy_data$Genome_ID, taxonomy_data$Genus_rev)
+df_temp <- distinct(df_temp)
+names(df_temp) <- c("Genome_ID","Genus_rev")
+
+df_amrf_genome2 <- merge(df_amrf_genome, df_temp, by="Genome_ID")
+
+df_amrf_genome3 <- merge(taxonomy_data, df_amrf_genome2, all.x = T)
+df_amrf_genome3$Count[which((grepl("[0-9]+", df_amrf_genome3$Count)==F))]<-0
+```
+
+## Plots
+
+El primer gráfico muestra la frecuencia relativa de presencia de cierta resistencia, coloreada según pertenencia a los géneros más relevantes de bacterias y dividido por clase taxonómica.
+
+```{r}
+#| label: Plot1
+#Percentage of Resistence found in relevant Genus
+ggplot(data_amrf_filtered_merged, aes(x=Class)) +
+  geom_bar(aes(y = after_stat(count)/11430, fill = Genus_rev, alpha=0.1), stat = "count", col = "black", alpha = 0.6) +
+  facet_grid(.~class, scale="free_x",space="free") + scale_y_continuous(labels=scales::percent) + xlab("RESISTENCE") + ylab("Relative Freq") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 5, face = "bold"))
+```
+
+El segundo muestra qué cantidad de genomas tienen x número de resistencias, sólo para genomas que tengan al menos una.
+
+```{r}
+#| label: Plot2
+#nº of Resistences (without Nulls)
+ggplot(df_amrf_genome2, aes(Count, fill=Genus_rev)) + geom_bar(stat="count") +
+  xlab("Nº OF RESISTENCES") + ylab("OCCURRENCE")
+```
+
+El tercero muestra qué cantidad de genomas tienen x número de resistencias, incluyendo aquellos que no presentan ninguna.
+
+```{r}
+#| label: Plot3
+#nº of Resistences (with Nulls)
+ggplot(df_amrf_genome3, aes(Count, fill=Genus_rev)) + geom_bar(stat="count") +
+  xlab("Nº OF RESISTENCES") + ylab("OCCURRENCE")
+```
+
+## Session Info
+
+```{r}
+#| label: session-info
+#| echo: false
+sessionInfo()
+```
